@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 
 const LobbyList = ({ lobbies, user }) => {
+
   return (
     <>
       <h1>These are the available lobbies</h1>
@@ -16,6 +17,37 @@ const LobbyList = ({ lobbies, user }) => {
           </Link>
         </div>
       ))}
+    <form
+      autoComplete="off"
+      onSubmit=""
+      className="form"
+    >
+      <div>
+        <label htmlFor="name">Lobby Name:</label>
+        <input
+          type="text"
+          autoComplete="off"
+          id="name"
+          value="{formData.name}"
+          name="name"
+          onChange="{handleChange}"
+        />
+      </div>
+      <div>
+        <label htmlFor="description">Description</label>
+        <input
+          type="text"
+          autoComplete="off"
+          id="description"
+          value="{formData.pw}"
+          name="description"
+          onChange="{handleChange}"
+        />
+      </div>
+      <div className='button-container'>
+        <button>New Lobby</button>
+      </div>
+    </form>
     </>
   )
 }

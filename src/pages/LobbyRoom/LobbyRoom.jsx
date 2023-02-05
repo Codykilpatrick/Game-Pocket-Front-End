@@ -40,8 +40,7 @@ const LobbyRoom = ({ user }) => {
           :
           'No chatroom'
         }
-      </h2>
-      
+      </h2>   
     </>
   )
 }
