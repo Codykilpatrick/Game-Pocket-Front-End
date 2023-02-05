@@ -1,13 +1,16 @@
 import { Link, redirect } from "react-router-dom"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 import * as lobbyService from '../../services/lobbyService'
+import * as chatroomService from '../../services/chatroomService'
 
 const LobbyList = ({ lobbies, user }) => {
+  
+  const [chatroom, setChatroom] = useState({})
 
   const [formData, setFormData] = useState({
     name: '',
-    content: '',
+    content: ''
   }, [])
 
   const updateForm = msg => {
@@ -28,12 +31,21 @@ const LobbyList = ({ lobbies, user }) => {
     }
   }
 
+   // create chatroom
+  useEffect(() => {
+    const createChatroom = async () => {
+      const data = await chatroomService.create()
+      setChatroom(data)
+    }
+    createChatroom()
+  }, [])
+
   return (
     <>
       <h1>These are the available lobbies</h1>
       {lobbies.map((lobby, idx) => (
         <div key={lobby._id}>
-          <Link to={`/lobby/${lobby._id}`}>
+          <Link to={`/lobby/${lobby._id}`} state={chatroom}>
             <div>
               <h2>Lobby {idx + 1}</h2>
               <h3>Name: {lobby.name}</h3>

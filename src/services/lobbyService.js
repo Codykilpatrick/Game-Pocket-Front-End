@@ -15,6 +15,18 @@ const index = async () => {
 
 const create = async (lobbyData) => {
   try {
+    const res2 = await fetch(`http://localhost:3001/api/chatrooms`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${tokenService.getToken()}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: lobbyData.name,
+      })
+    })
+    const chatroom = res2.json()
+    lobbyData.chatroom = chatroom._id
     const res = await fetch(`${BASE_URL}`, {
       method: 'POST',
       headers: {

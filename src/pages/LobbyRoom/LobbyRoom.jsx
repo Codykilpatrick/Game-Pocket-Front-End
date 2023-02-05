@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
+import { Location } from 'react-router-dom';
 
 // Services
 import * as lobbyService from '../../services/lobbyService'
 
+
 const LobbyRoom = ({ user }) => {
   const { id } = useParams()
   const [lobby, setLobby] = useState('')
-  
+  const location = useLocation()
+  console.log(location.state);
+
   // fetch lobby
   useEffect(() => {
     const fetchLobby = async () => {
@@ -16,6 +20,7 @@ const LobbyRoom = ({ user }) => {
     }
     fetchLobby()
   }, [id])
+
   
   if (!lobby) return <h1>Loading</h1>
 
@@ -34,9 +39,9 @@ const LobbyRoom = ({ user }) => {
       </h2>
       <h2>
         Chatroom: {
-          lobby.chatroom.name
+          location.state.owner
           ?
-          lobby.chatroom.name
+          location.state.owner
           :
           'No chatroom'
         }
