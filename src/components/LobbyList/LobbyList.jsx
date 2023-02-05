@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom"
 import { useState } from "react"
 
+import * as lobbyService from '../../services/lobbyService'
+
 const LobbyList = ({ lobbies, user }) => {
 
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-  })
+  }, [])
 
   const updateForm = msg => {
     setFormData(msg)
@@ -15,6 +17,14 @@ const LobbyList = ({ lobbies, user }) => {
   const handleChange = e => {
     updateForm('')
     setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+  const handleSubmit = async evt =>{
+    evt.preventDefault()
+    try {
+      await lobbyService.create(formData)
+    } catch (err){
+      console.log(err);
+    }
   }
 
   return (
@@ -34,7 +44,7 @@ const LobbyList = ({ lobbies, user }) => {
       ))}
     <form
       autoComplete="off"
-      onSubmit=""
+      onSubmit={handleSubmit}
       className="form"
     >
       <div>
