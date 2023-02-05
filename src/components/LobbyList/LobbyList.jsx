@@ -1,6 +1,21 @@
 import { Link } from "react-router-dom"
+import { useState } from "react"
 
 const LobbyList = ({ lobbies, user }) => {
+
+  const [formData, setFormData] = useState({
+    name: '',
+    description: '',
+  })
+
+  const updateForm = msg => {
+    setFormData(msg)
+  }
+
+  const handleChange = e => {
+    updateForm('')
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
 
   return (
     <>
@@ -28,9 +43,9 @@ const LobbyList = ({ lobbies, user }) => {
           type="text"
           autoComplete="off"
           id="name"
-          value="{formData.name}"
+          value={formData.name}
           name="name"
-          onChange="{handleChange}"
+          onChange={handleChange}
         />
       </div>
       <div>
@@ -39,9 +54,9 @@ const LobbyList = ({ lobbies, user }) => {
           type="text"
           autoComplete="off"
           id="description"
-          value="{formData.pw}"
+          value={formData.description}
           name="description"
-          onChange="{handleChange}"
+          onChange={handleChange}
         />
       </div>
       <div className='button-container'>
