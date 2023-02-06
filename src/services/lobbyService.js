@@ -17,7 +17,7 @@ const index = async () => {
 const create = async (lobbyData) => {
   try {
     const chatroom = await createChatroom({name: lobbyData.name})
-    lobbyData.chatroom = chatroom._id
+    lobbyData.mainroom = chatroom._id
     const res = await fetch(`${BASE_URL}`, {
       method: 'POST',
       headers: {
