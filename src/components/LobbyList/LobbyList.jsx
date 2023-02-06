@@ -47,7 +47,7 @@ const LobbyList = ({ user }) => {
       console.log(err);
     }
   }
-
+  console.log(lobbies)
   return (
     <>
       <h1>These are the available lobbies</h1>
