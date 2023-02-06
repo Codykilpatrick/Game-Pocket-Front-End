@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-import { Location } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 // Services
 import * as lobbyService from '../../services/lobbyService'
@@ -8,44 +7,32 @@ import * as lobbyService from '../../services/lobbyService'
 
 const LobbyRoom = ({ user }) => {
   const { id } = useParams()
-  const [lobby, setLobby] = useState('')
-  const location = useLocation()
-  console.log(location.state);
+  const [lobby, setLobby] = useState({})
 
   // fetch lobby
   useEffect(() => {
     const fetchLobby = async () => {
+      console.log("id", id);
       const data = await lobbyService.show(id)
+      console.log("data", data);
       setLobby(data)
     }
     fetchLobby()
   }, [id])
-
   
-  if (!lobby) return <h1>Loading</h1>
-
+  // if (!lobby) return <h1>Loading</h1>
+  console.log(lobby);
   return (
     <>
-      <h1>{lobby.name}</h1>
-      <h2>Description: {lobby.content}</h2>
-      <h2>
-        Current Members: {
-          lobby.members.length
-          ?
-          lobby.members.map(member => member.name)
+    {lobby ? 
+          <>
+          <h1>{lobby.name}</h1>
+          <div>We have lobby</div>
+          <h1>{lobby.name}</h1>
+          </>
           :
-          0
-        }
-      </h2>
-      <h2>
-        Chatroom: {
-          lobby.chatroom.name
-          ?
-          lobby.chatroom.name
-          :
-          'No chatroom'
-        }
-      </h2> 
+          <div>Loading</div> 
+    }
     </>
   )
 }
